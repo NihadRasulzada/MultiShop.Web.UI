@@ -1,0 +1,37 @@
+﻿@using MultiShop.Web.UI.ViewComponents.ProductListViewComponents
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="#">Home</a>
+                <a class="breadcrumb-item text-dark" href="#">Shop</a>
+                <span class="breadcrumb-item active">Shop List</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-lg-3 col-md-4">
+            @await Component.InvokeAsync(nameof(_ProductListPriceFilterComponentPartial))
+
+            @await Component.InvokeAsync(nameof(_ProductListColorFilterComponentPartial))
+
+            @await Component.InvokeAsync(nameof(_ProductListSizeFilterComponentPartial))
+        </div>
+        <div class="col-lg-9 col-md-8">
+            <div class="row pb-3">
+                @await Component.InvokeAsync(nameof(_ProductListGetProductCountComponentPartial))
+
+                @await Component.InvokeAsync(nameof(_ProductListComponentPartial))
+
+                @await Component.InvokeAsync(nameof(_ProductListPaginationComponentPartial))
+            </div>
+        </div>
+    </div>
+</div>

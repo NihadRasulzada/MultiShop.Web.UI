@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>a53e1742-1f78-4949-9726-acdd23e0c064</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\help-documentation\assets\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\help-documentation\assets\blueprint-css\plugins\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\app\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\charts\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\component\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\dist\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\forms\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\maps\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\pages\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\tables\et-line-font\fonts\.DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+
+</Project>

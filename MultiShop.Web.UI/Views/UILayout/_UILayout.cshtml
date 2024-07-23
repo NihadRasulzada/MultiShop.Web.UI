@@ -1,0 +1,22 @@
+﻿@using MultiShop.Web.UI.ViewComponents.UILayoutViewComponents
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+@await Component.InvokeAsync("_HeadUILayoutViewComponentPartial")
+
+<body>
+    @await Component.InvokeAsync(nameof(_TopbarUILayoutViewComponentPartial))
+
+    @await Component.InvokeAsync(nameof(_NavbarUILayoutViewComponentPartial))
+
+    @RenderBody();
+
+    @await Component.InvokeAsync(nameof(_FooterUILayoutViewComponentPartial))
+
+    @await Component.InvokeAsync(nameof(_ScriptUILayoutViewComponentPartial))
+</body>
+</html>

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  catalog-image:
+    image: multi-shop-web-ui-api
+    container_name: web-ui-api
+    ports:
+      - "7060:8080"
+      - "7061:8081"
+    networks:
+      - multishop-web-ui-network
+
+networks:
+  multishop-web-ui-network:
+    external: true
