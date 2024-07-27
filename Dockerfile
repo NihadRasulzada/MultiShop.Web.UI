@@ -10,6 +10,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["MultiShop.Web.UI/MultiShop.Web.UI.csproj", "MultiShop.Web.UI/"]
+COPY ["MultiShop.Web.Dto/MultiShop.Web.Dto.csproj", "MultiShop.Web.Dto/"]
 RUN dotnet restore "./MultiShop.Web.UI/MultiShop.Web.UI.csproj"
 COPY . .
 WORKDIR "/src/MultiShop.Web.UI"
