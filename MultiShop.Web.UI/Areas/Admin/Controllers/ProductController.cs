@@ -47,6 +47,8 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while fetching products.");
+                    return View();
+
                 }
             }
             catch (Exception ex)
@@ -79,6 +81,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while fetching categories.");
+                    return View();
                 }
             }
             catch (Exception ex)
@@ -111,6 +114,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while creating the product.");
+                    return View();
                 }
             }
             catch (Exception ex)
@@ -159,6 +163,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while fetching product details.");
+                        return View();
                 }
             }
             catch (Exception ex)
@@ -198,6 +203,8 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+                return View();
+
             }
 
             return View(model);
@@ -223,6 +230,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while deleting the product.");
+                    return View();
                 }
             }
             catch (Exception ex)

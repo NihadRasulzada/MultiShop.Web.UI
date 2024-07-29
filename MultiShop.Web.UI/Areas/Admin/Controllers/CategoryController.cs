@@ -86,6 +86,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while creating the category.");
+                    return View();
                 }
             }
             catch (Exception ex)
@@ -116,6 +117,8 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while deleting the category.");
+                    return View();
+
                 }
             }
             catch (Exception ex)
@@ -143,6 +146,8 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while fetching category details.");
+                    return View();
+
                 }
             }
             catch (Exception ex)
@@ -175,6 +180,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while updating the category.");
+                    return View();
                 }
             }
             catch (Exception ex)
