@@ -1,0 +1,52 @@
+﻿@model CreateProductDto
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Kategori Ekle</h4>
+                    <p class="text-muted">Aşağıdaki formu doldurarak yeni bir kategori ekleyebilirsiniz.</p>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="Name">Kategori Adı</label>
+                            <input class="form-control" asp-for="Name" id="Name" placeholder="Kategori adı girin" />
+                            <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="Price">Fiyat</label>
+                            <input class="form-control" asp-for="Price" id="Price" placeholder="Fiyat girin" />
+                            <span class="text-danger" asp-validation-for="Price"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="ImageUrl">Resim URL</label>
+                            <input class="form-control" asp-for="ImageUrl" id="ImageUrl" placeholder="Resim URL'si girin" />
+                            <span class="text-danger" asp-validation-for="ImageUrl"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="CategoryId">Kategori</label>
+                            @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.Categories, new { @class = "form-control" })
+                            <span class="text-danger" asp-validation-for="CategoryId"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Açıklama</label>
+                            <textarea class="form-control" asp-for="Description" id="Description" rows="4" placeholder="Açıklama girin"></textarea>
+                            <span class="text-danger" asp-validation-for="Description"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Kategoriyi Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@* @section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+} *@
