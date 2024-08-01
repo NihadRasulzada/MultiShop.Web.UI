@@ -4,7 +4,7 @@ namespace MultiShop.Web.UI.ViewComponents.ProductDetailViewComponents
 {
     public class _ProductDetailImageSliderComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke( )
+        public IViewComponentResult Invoke()
         {
             return View();
         }

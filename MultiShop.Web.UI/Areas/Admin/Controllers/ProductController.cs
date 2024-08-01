@@ -59,6 +59,35 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ProductsWithCategory()
+        {
+            SetViewBagValues();
+
+            var client = _clientFactory.CreateClient();
+            try
+            {
+                var response = await client.GetAsync($"{ApiBaseUrl}Product/ProductsWithCategory").ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var products = JsonConvert.DeserializeObject<List<ResultProductWithCategoryDto>>(data);
+                    return View(products);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "An error occurred while fetching products.");
+                    return View();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+            }
+
+            return View();
+        }
+
         public async Task<IActionResult> Create()
         {
             SetViewBagValues();
@@ -163,7 +192,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while fetching product details.");
-                        return View();
+                    return View();
                 }
             }
             catch (Exception ex)
