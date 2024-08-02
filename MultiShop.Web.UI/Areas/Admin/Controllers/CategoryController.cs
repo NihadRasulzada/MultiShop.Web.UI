@@ -9,7 +9,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly IHttpClientFactory _clientFactory;
-        private const string ApiBaseUrl = "http://157.230.105.226:7010/api/";
+        private const string ApiBaseUrl = "http://157.230.105.226:7010/api/Category/";
         private const string ViewBagV1 = "Home Page";
         private const string ViewBagV2 = "Categories";
         private const string ViewBagV3 = "Category Lists";
@@ -35,7 +35,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
             var client = _clientFactory.CreateClient();
             try
             {
-                var response = await client.GetAsync($"{ApiBaseUrl}Category").ConfigureAwait(false);
+                var response = await client.GetAsync($"{ApiBaseUrl}").ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -78,7 +78,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
 
             try
             {
-                var response = await client.PostAsync($"{ApiBaseUrl}Category", content).ConfigureAwait(false);
+                var response = await client.PostAsync($"{ApiBaseUrl}", content).ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction(nameof(Index), "Category", new { area = nameof(Admin) });
@@ -109,7 +109,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
 
             try
             {
-                var response = await client.DeleteAsync($"{ApiBaseUrl}Category/?id=" + id).ConfigureAwait(false);
+                var response = await client.DeleteAsync($"{ApiBaseUrl}?id=" + id).ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction(nameof(Index), "Category", new { area = nameof(Admin) });
@@ -136,7 +136,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
             var client = _clientFactory.CreateClient();
             try
             {
-                var response = await client.GetAsync($"{ApiBaseUrl}Category/{id}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{ApiBaseUrl}{id}").ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -172,7 +172,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
 
             try
             {
-                var response = await client.PutAsync($"{ApiBaseUrl}Category/{id}", content).ConfigureAwait(false);
+                var response = await client.PutAsync($"{ApiBaseUrl}{id}", content).ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction(nameof(Index), "Category", new { area = nameof(Admin) });
