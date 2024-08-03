@@ -172,7 +172,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
 
             try
             {
-                var response = await client.PutAsync($"{ApiBaseUrl}{id}", content).ConfigureAwait(false);
+                var response = await client.PutAsync($"{ApiBaseUrl}", content).ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction(nameof(Index), "Category", new { area = nameof(Admin) });
