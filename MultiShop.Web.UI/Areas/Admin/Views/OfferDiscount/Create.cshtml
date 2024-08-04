@@ -1,4 +1,4 @@
-﻿@model MultiShop.Web.Dto.CatalogDtos.CategoryDtos.UpdateCategoryDto
+﻿@model CreateOfferDiscountDto
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
@@ -12,11 +12,17 @@
                 <p>Add <code>.table-bordered</code> for borders on all sides of the table and cells.</p>
                 <div class="bs-example" data-example-id="bordered-table">
                     <form method="post">
-                        <label>Kategori Adı</label>
-                        <input class="form-control" asp-for="Name" />
+                        <label>Kategori Title</label>
+                        <input class="form-control" asp-for="Title" />
+                        <br />
+                        <label>Kategori SubTitle</label>
+                        <input class="form-control" asp-for="SubTitle" />
                         <br />
                         <label>Kategori ImageUrl</label>
                         <input class="form-control" asp-for="ImageUrl" />
+                        <br />
+                        <label>Kategori ButtonTitle</label>
+                        <input class="form-control" asp-for="ButtonTitle" />
                         <br />
                         <button type="submit" class="btn btn-primary">Kategoriyi Ekle</button>
                     </form>
