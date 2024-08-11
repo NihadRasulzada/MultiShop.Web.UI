@@ -1,0 +1,50 @@
+﻿@model GetByIdProductImageDto
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Kategori Ekle</h4>
+                    <p class="text-muted">Aşağıdaki formu doldurarak yeni bir kategori ekleyebilirsiniz.</p>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                         <input asp-for="Id"/>
+                        @* <input asp-for="ProductId"/> *@
+                        <div class="form-group">
+                            <label asp-for="Image1">Kategori Adı</label>
+                            <input class="form-control" asp-for="Image1" placeholder="Kategori adı girin" />
+                            <span class="text-danger" asp-validation-for="Image1"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Image2">Kategori Adı</label>
+                            <input class="form-control" asp-for="Image2" placeholder="Kategori adı girin" />
+                            <span class="text-danger" asp-validation-for="Image2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Image3">Kategori Adı</label>
+                            <input class="form-control" asp-for="Image3" placeholder="Kategori adı girin" />
+                            <span class="text-danger" asp-validation-for="Image3"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Image4">Kategori Adı</label>
+                            <input class="form-control" asp-for="Image4" placeholder="Kategori adı girin" />
+                            <span class="text-danger" asp-validation-for="Image4"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Kategoriyi Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@* @section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+} *@
