@@ -58,15 +58,15 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(string id, UpdateProductDetailDto updateProductDetailDto)
+        public async Task<IActionResult> Update(string productId, GetByIdProductDetailDto GetByIdProductDetailDto)
         {
             if (!ModelState.IsValid)
             {
-                return View(updateProductDetailDto);
+                return View(GetByIdProductDetailDto);
             }
 
             var client = _clientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateProductDetailDto);
+            var jsonData = JsonConvert.SerializeObject(GetByIdProductDetailDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
             try
@@ -87,7 +87,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
                 ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
             }
 
-            return View(updateProductDetailDto);
+            return View(GetByIdProductDetailDto);
         }
     }
 }

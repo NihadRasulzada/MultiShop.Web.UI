@@ -10,8 +10,8 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
     public class ProductImageController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        //private const string ApiBaseUrl = "http://157.230.105.226:7010/api/";
-        private const string ApiBaseUrl = "http://localhost:7070/api/";
+        private const string ApiBaseUrl = "http://157.230.105.226:7010/api/";
+        //private const string ApiBaseUrl = "http://localhost:7070/api/";
         private const string ViewBagV1 = "Home Page";
         private const string ViewBagV2 = "ProductImages";
         private const string ViewBagV3 = "ProductImage Lists";
