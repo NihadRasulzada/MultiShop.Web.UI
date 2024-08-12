@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MultiShop.Web.Dto.CatalogDtos.CategoryDtos;
 using MultiShop.Web.Dto.CatalogDtos.ProducImageDtos;
 using Newtonsoft.Json;
 

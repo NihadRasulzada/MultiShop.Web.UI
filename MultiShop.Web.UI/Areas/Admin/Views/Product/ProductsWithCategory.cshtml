@@ -18,6 +18,7 @@
                                 <th>Price</th>
                                 <th>Category</th>
                                 <th>Images</th>
+                                <th>Detail</th>
                                 <th>Delete</th>
                                 <th>Update</th>
                             </tr>
@@ -31,6 +32,7 @@
                                     <td>@item.Price</td>
                                     <td>@item.Category.Name</td>
                                     <td><a asp-action="Update" asp-controller="ProductImage" asp-area="Admin" asp-route-productId="@item.Id" class="btn btn-warning">Images</a></td>
+                                    <td><a asp-action="Update" asp-controller="ProductDetail" asp-area="Admin" asp-route-productId="@item.Id" class="btn btn-info">Images</a></td>
                                     <td><a asp-action="Delete" asp-controller="Product" asp-area="Admin" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
                                     <td><a asp-action="Update" asp-controller="Product" asp-area="Admin" asp-route-id="@item.Id" class="btn btn-success">Update</a></td>
                                 </tr>

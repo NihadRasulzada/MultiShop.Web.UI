@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MultiShop.Web.Dto.CatalogDtos.CategoryDtos;
 using MultiShop.Web.Dto.CatalogDtos.ProducImageDtos;
 using Newtonsoft.Json;
-using System.Collections.Specialized;
 using System.Text;
 
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
@@ -10,7 +10,8 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
     public class ProductImageController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private const string ApiBaseUrl = "http://157.230.105.226:7010/api/";
+        //private const string ApiBaseUrl = "http://157.230.105.226:7010/api/";
+        private const string ApiBaseUrl = "http://localhost:7070/api/";
         private const string ViewBagV1 = "Home Page";
         private const string ViewBagV2 = "ProductImages";
         private const string ViewBagV3 = "ProductImage Lists";
@@ -43,20 +44,25 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
                 return View(values);
             }
             return View();
-        }   
+        }
 
         [HttpPost]
         public async Task<IActionResult> Update(string productId, GetByIdProductImageDto dto)
-        { 
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(dto);
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var response = await client.PutAsJsonAsync($"{ApiBaseUrl}ProductImage/", content);
+            var response = await client.PutAsync($"{ApiBaseUrl}ProductImage/", content);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("ProductsWithCategory", "Product", new { area = nameof(Admin)});
+                return RedirectToAction("ProductsWithCategory", "Product", new { area = nameof(Admin) });
             }
-            
+
             return View();
         }
     }

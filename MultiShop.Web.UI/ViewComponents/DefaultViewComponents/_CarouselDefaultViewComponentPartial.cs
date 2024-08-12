@@ -16,7 +16,7 @@ namespace MultiShop.Web.UI.ViewComponents.DefaultViewComponents
         {
             var client = _httpClientFactory.CreateClient();
             var response = await client.GetAsync("http://157.230.105.226:7010/api/FeatureSlider/");
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 var data = await response.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultFeatureSliderDto>>(data);

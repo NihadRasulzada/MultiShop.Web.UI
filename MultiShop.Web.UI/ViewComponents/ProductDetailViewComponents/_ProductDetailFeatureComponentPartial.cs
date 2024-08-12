@@ -17,7 +17,7 @@ namespace MultiShop.Web.UI.ViewComponents.ProductDetailViewComponents
         {
             var client = _httpClientFactory.CreateClient();
             var response = await client.GetAsync("http://157.230.105.226:7010/api/Product/" + id);
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<UpdateProductDto>(jsonData);
