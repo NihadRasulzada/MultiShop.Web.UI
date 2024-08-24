@@ -1,0 +1,136 @@
+﻿@model MultiShop.Web.Dto.AuthDtos.RegisterDtos.CreateRegisterDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/colorlib-regform-30/css/opensans-font.css">
+    <link rel="stylesheet" type="text/css" href="~/colorlib-regform-30/fonts/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+    <link rel="stylesheet" href="~/colorlib-regform-30/css/style.css" />
+    <style>
+        body {
+            overflow: hidden; /* Scrollu ləğv edir */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .page-content {
+            height: 100vh; /* Məzmuna uyğunlaşdırır */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-v4-content {
+            height: auto; /* Məzmuna uyğunlaşdırır */
+            max-height: 100%; /* Ekranın maksimal hündürlüyünü təyin edir */
+        }
+    </style>
+</head>
+<body class="form-v4">
+    <div class="page-content">
+        <div class="form-v4-content">
+            <div class="form-left">
+                <h2>INFORMATION</h2>
+                <p class="text-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p class="text-2"><span>Eu ultrices:</span> Vitae auctor eu augue ut. Malesuada nunc vel risus commodo viverra.</p>
+                <div class="form-left-last">
+                    <a class="account" href="@Url.Action("Index", "Login")">Have An Account</a>
+                </div>
+            </div>
+            <form class="form-detail" method="post" asp-action="Index" id="registerForm">
+                <h2>REGISTER FORM</h2>
+                <div class="form-group">
+                    <div class="form-row form-row">
+                        <label asp-for="UserName">Username</label>
+                        <input type="text" asp-for="UserName" class="input-text" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row form-row-1">
+                        <label asp-for="Name">First Name</label>
+                        <input type="text" asp-for="Name" class="input-text" required>
+                    </div>
+                    <div class="form-row form-row-1">
+                        <label asp-for="Surname">Last Name</label>
+                        <input type="text" asp-for="Surname" class="input-text" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label asp-for="Email">Your Email</label>
+                    <input type="email" asp-for="Email" class="input-text" required>
+                </div>
+                <div class="form-group">
+                    <div class="form-row form-row-1">
+                        <label asp-for="Password">Password</label>
+                        <input type="password" asp-for="Password" class="input-text" id="Password" required>
+                    </div>
+                    <div class="form-row form-row-1">
+                        <label asp-for="ConfirmPassword">Confirm Password</label>
+                        <input type="password" asp-for="ConfirmPassword" class="input-text" id="ConfirmPassword" required>
+                    </div>
+                </div>
+                <div class="form-row-last">
+                    <button type="submit" class="register">Register</button>
+                </div>
+            </form>
+            @* Display validation errors *@
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div>
+                    <ul>
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#registerForm").validate({
+                 rules: {
+                    Pas sword:   "required",
+                    ConfirmPassword: {
+                       equalTo: "#Password"
+                    }
+              },
+                 messages: {
+                       UserName: {
+                           required: "Please enter a username"
+                        },
+                       Name: {
+                         required: "Please enter a firstname"
+                     },
+                        Surname: {
+                               required: "Please enter a lastname"
+                        },
+                        Email: {
+                               required: "Please provide an email"
+                        },
+                        Password: {
+                               required: "Please enter a password"
+                        },
+                        ConfirmPassword: {
+                               required: "Please enter a password",
+                            equalTo: "Passwords do not match"
+                        }
+                       }
+                });
+           });
+    </script>
+</body>
+</html>
