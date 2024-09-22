@@ -1,45 +1,47 @@
 ﻿@model List<ResultProductWithCategoryDto>
+
 @{
-    ViewData["Title"] = "ProductsWithCategory";
+    ViewData["Title"] = "ProductListWithCategory";
     Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+    int count = 0;
 }
+
 <section class="content container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="chart-box">
-                <h4>Bordered Table</h4>
-                <p>Add <code>.table-bordered</code> for borders on all sides of the table and cells.</p>
                 <div class="bs-example" data-example-id="bordered-table">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Category</th>
-                                <th>Images</th>
-                                <th>Detail</th>
-                                <th>Delete</th>
-                                <th>Update</th>
+                                <th>Ürün Adı</th>
+                                <th>Ürün Fiyatı</th>
+                                <th>Ürün Kategori</th>
+                                <th>Sil</th>
+                                <th>Güncelle</th>
+                                <th>Ürün Görselleri</th>
+                                <th>Açıklama ve Bilgi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
+                                count++;
                                 <tr>
-                                    <th scope="row">@item.Id</th>
+                                    <th scope="row">@count</th>
                                     <td>@item.Name</td>
                                     <td>@item.Price</td>
                                     <td>@item.Category.Name</td>
-                                    <td><a asp-action="Update" asp-controller="ProductImage" asp-area="Admin" asp-route-productId="@item.Id" class="btn btn-warning">Images</a></td>
-                                    <td><a asp-action="Update" asp-controller="ProductDetail" asp-area="Admin" asp-route-productId="@item.Id" class="btn btn-info">Images</a></td>
-                                    <td><a asp-action="Delete" asp-controller="Product" asp-area="Admin" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
-                                    <td><a asp-action="Update" asp-controller="Product" asp-area="Admin" asp-route-id="@item.Id" class="btn btn-success">Update</a></td>
+                                    <td><a href="/Admin/Product/Delete/@item.Id" class="btn btn-danger">Sil</a></td>
+                                    <td><a href="/Admin/Product/Update/@item.Id" class="btn btn-success">Güncelle</a></td>
+                                    <td><a href="/Admin/ProductImage/ProductImageDetail/@item.Id" class="btn btn-warning">Ürün Görselleri</a></td>
+                                    <td><a href="/Admin/ProductDetail/UpdateProductDetail/@item.Id" class="btn btn-info">Açıklama ve Bilgi</a></td>
                                 </tr>
                             }
                         </tbody>
                     </table>
-                    <a asp-area="Admin" asp-action="Create" asp-controller="Category" class="btn btn-primary">Create</a>
+                    <a href="/Admin/Product/Create/" class="btn btn-primary">Yeni Ürün Girişi</a>
                 </div>
             </div>
         </div>

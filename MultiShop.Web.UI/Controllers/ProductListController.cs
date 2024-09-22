@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
 using MultiShop.Web.Dto.CommentDtos;
-using Newtonsoft.Json;
 
 namespace MultiShop.Web.UI.Controllers
 {

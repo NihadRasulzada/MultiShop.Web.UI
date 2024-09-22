@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
 using MultiShop.Web.Dto.CatalogDtos.ProductsDetailDtos;
 using Newtonsoft.Json;
 

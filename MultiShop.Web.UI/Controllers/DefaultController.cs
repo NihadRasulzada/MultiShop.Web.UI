@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MultiShop.Web.UI.Services;
+using MultiShop.Web.UI.Services.Interfaces;
 
 namespace MultiShop.Web.UI.Controllers
 {
@@ -14,9 +14,6 @@ namespace MultiShop.Web.UI.Controllers
 
         public IActionResult Index()
         {
-            var id = _loginService.GetUserId;
-            var user = User.Claims;
-            int x;
             return View();
         }
     }

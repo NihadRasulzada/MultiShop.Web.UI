@@ -78,7 +78,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
 
                 }
             }
-            catch (Exception ex)    
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
             }

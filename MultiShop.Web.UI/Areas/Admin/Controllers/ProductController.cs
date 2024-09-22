@@ -1,273 +1,103 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using MultiShop.Web.Dto.CatalogDtos.CategoryDtos;
 using MultiShop.Web.Dto.CatalogDtos.ProductDtos;
-using Newtonsoft.Json;
-using System.Text;
+using MultiShop.Web.UI.Services.CatalogServices.CategoryServices;
+using MultiShop.Web.UI.Services.CatalogServices.ProductServices;
 
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {
-    [Area(nameof(Admin))]
+    [Area("Admin")]
     public class ProductController : Controller
     {
-        private readonly IHttpClientFactory _clientFactory;
-        private const string ApiBaseUrl = "http://157.230.105.226:7010/api/";
-        private const string ViewBagV1 = "Home Page";
-        private const string ViewBagV2 = "Categories";
-        private const string ViewBagV3 = "Category Lists";
-        private const string ViewBagV0 = "Category works";
-
-        public ProductController(IHttpClientFactory clientFactory)
+        private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
+        public ProductController(IProductService productService, ICategoryService categoryService)
         {
-            _clientFactory = clientFactory;
+            _productService = productService;
+            _categoryService = categoryService;
         }
-
-        private void SetViewBagValues()
+        void ProductViewBagList()
         {
-            ViewBag.v1 = ViewBagV1;
-            ViewBag.v2 = ViewBagV2;
-            ViewBag.v3 = ViewBagV3;
-            ViewBag.v0 = ViewBagV0;
+            ViewBag.v1 = "Ana Sayfa";
+            ViewBag.v2 = "Ürünler";
+            ViewBag.v3 = "Ürün Listesi";
+            ViewBag.v0 = "Ürün İşlemleri";
         }
 
         public async Task<IActionResult> Index()
         {
-            SetViewBagValues();
-
-            var client = _clientFactory.CreateClient();
-            try
-            {
-                var response = await client.GetAsync($"{ApiBaseUrl}Product").ConfigureAwait(false);
-                if (response.IsSuccessStatusCode)
-                {
-                    var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    var products = JsonConvert.DeserializeObject<List<ResultProductDto>>(data);
-                    return View(products);
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "An error occurred while fetching products.");
-                    return View();
-
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-            }
-
-            return View();
+            ProductViewBagList();
+            var values = await _productService.GetAllProductAsync();
+            return View(values);
         }
 
-        public async Task<IActionResult> ProductsWithCategory()
+        public async Task<IActionResult> ProductListWithCategory()
         {
-            SetViewBagValues();
+            ProductViewBagList();
 
-            var client = _clientFactory.CreateClient();
-            try
-            {
-                var response = await client.GetAsync($"{ApiBaseUrl}Product/ProductsWithCategory").ConfigureAwait(false);
-                if (response.IsSuccessStatusCode)
-                {
-                    var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    var products = JsonConvert.DeserializeObject<List<ResultProductWithCategoryDto>>(data);
-                    return View(products);
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "An error occurred while fetching products.");
-                    return View();
-
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-            }
-
+            //var client = _httpClientFactory.CreateClient();
+            //var responseMessage = await client.GetAsync("https://localhost:7070/api/Products/ProductListWithCategory");
+            //if (responseMessage.IsSuccessStatusCode)
+            //{
+            //    var jsonData = await responseMessage.Content.ReadAsStringAsync();
+            //    var values = JsonConvert.DeserializeObject<List<ResultProductWithCategoryDto>>(jsonData);
+            //    return View(values);
+            //}
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
-            SetViewBagValues();
-
-            var client = _clientFactory.CreateClient();
-            try
-            {
-                var response = await client.GetAsync($"{ApiBaseUrl}Category").ConfigureAwait(false);
-                if (response.IsSuccessStatusCode)
-                {
-                    var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    var categories = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(data);
-                    List<SelectListItem> categoryItems = categories.Select(x => new SelectListItem
-                    {
-                        Text = x.Name,
-                        Value = x.Id
-                    }).ToList();
-                    ViewBag.Categories = categoryItems;
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "An error occurred while fetching categories.");
-                    return View();
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-            }
-
+            ProductViewBagList();
+            var values = await _categoryService.GetAllCategoryAsync();
+            List<SelectListItem> categoryValues = (from x in values
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.Name,
+                                                       Value = x.Id
+                                                   }).ToList();
+            ViewBag.CategoryValues = categoryValues;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateProductDto model)
+        public async Task<IActionResult> Create(CreateProductDto createProductDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var client = _clientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(model);
-            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-            try
-            {
-                var response = await client.PostAsync($"{ApiBaseUrl}Product", content).ConfigureAwait(false);
-                if (response.IsSuccessStatusCode)
-                {
-                    return RedirectToAction(nameof(Index), "Product", new { area = nameof(Admin) });
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "An error occurred while creating the product.");
-                    return View();
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-            }
-
-            return View(model);
-        }
-
-        public async Task<IActionResult> Update(string id)
-        {
-            SetViewBagValues();
-
-            if (string.IsNullOrEmpty(id))
-            {
-                ModelState.AddModelError(string.Empty, "Invalid product ID.");
-                return BadRequest();
-            }
-
-            var client = _clientFactory.CreateClient();
-            try
-            {
-                var response = await client.GetAsync($"{ApiBaseUrl}Product/{id}").ConfigureAwait(false);
-                if (response.IsSuccessStatusCode)
-                {
-                    var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    var product = JsonConvert.DeserializeObject<UpdateProductDto>(data);
-
-                    // Fetch categories
-                    var categoryResponse = await client.GetAsync($"{ApiBaseUrl}Category").ConfigureAwait(false);
-                    if (categoryResponse.IsSuccessStatusCode)
-                    {
-                        var categoryData = await categoryResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        var categories = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(categoryData);
-                        List<SelectListItem> categoryItems = categories.Select(x => new SelectListItem
-                        {
-                            Text = x.Name,
-                            Value = x.Id
-                        }).ToList();
-                        ViewBag.Categories = categoryItems;
-                    }
-
-                    return View(product);
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "An error occurred while fetching product details.");
-                    return View();
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-            }
-
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Update(string id, UpdateProductDto model)
-        {
-            SetViewBagValues();
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var client = _clientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(model);
-            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-            try
-            {
-                var response = await client.PutAsync($"{ApiBaseUrl}Product", content).ConfigureAwait(false);
-                if (response.IsSuccessStatusCode)
-                {
-                    return RedirectToAction(nameof(Index), "Product", new { area = nameof(Admin) });
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "An error occurred while updating the product.");
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-                return View();
-
-            }
-
-            return View(model);
+            await _productService.CreateProductAsync(createProductDto);
+            return RedirectToAction("Index", "Product", new { area = "Admin" });
         }
 
         public async Task<IActionResult> Delete(string id)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                ModelState.AddModelError(string.Empty, "Invalid product ID.");
-                return BadRequest();
-            }
+            await _productService.DeleteProductAsync(id);
+            return RedirectToAction("Index", "Product", new { area = "Admin" });
+        }
 
-            var client = _clientFactory.CreateClient();
+        [HttpGet]
+        public async Task<IActionResult> Update(string id)
+        {
+            ProductViewBagList();
 
-            try
-            {
-                var response = await client.DeleteAsync($"{ApiBaseUrl}Product/?id=" + id).ConfigureAwait(false);
-                if (response.IsSuccessStatusCode)
-                {
-                    return RedirectToAction(nameof(Index), "Product", new { area = nameof(Admin) });
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "An error occurred while deleting the product.");
-                    return View();
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-            }
+            var values = await _categoryService.GetAllCategoryAsync();
+            List<SelectListItem> categoryValues = (from x in values
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.Name,
+                                                       Value = x.Id
+                                                   }).ToList();
+            ViewBag.CategoryValues = categoryValues;
 
-            return BadRequest();
+            var productValues = await _productService.GetByIdProductAsync(id);
+            return View(productValues);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateProductDto updateProductDto)
+        {
+            await _productService.UpdateProductAsync(updateProductDto);
+            return RedirectToAction("Index", "Product", new { area = "Admin" });
         }
     }
+
 }
