@@ -1,31 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.CommentDtos;
+using MultiShop.Web.UI.Services.CatalogServices.ProductDetailServices;
 using Newtonsoft.Json;
 
 namespace MultiShop.Web.UI.ViewComponents.ProductDetailViewComponents
 {
     public class _ProductDetailReviewComponentPartial : ViewComponent
     {
-        private readonly IHttpClientFactory _clientFactory;
-        private const string ApiBaseUrl = "http://157.230.105.226:7070/api/Comment/";
+        private readonly IProductDetailService _productDetailService;
 
-        public _ProductDetailReviewComponentPartial(IHttpClientFactory clientFactory)
+        public _ProductDetailReviewComponentPartial(IProductDetailService productDetailService)
         {
-            _clientFactory = clientFactory;
+            _productDetailService = productDetailService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(string productId)
         {
-            var client = _clientFactory.CreateClient();
-            var response = await client.GetAsync($"{ApiBaseUrl}CommentListByProductId?productId=" + productId).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var categories = JsonConvert.DeserializeObject<List<ResultCommentDto>>(data);
-                return View(categories);
-            }
 
-            return View(new List<ResultCommentDto>());
         }
     }
 }

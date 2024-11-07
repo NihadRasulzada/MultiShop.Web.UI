@@ -3,17 +3,6 @@
     Layout = "~/Views/UILayout/_UILayout.cshtml";
 }
 
-<div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-12">
-            <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="#">Home</a>
-                <a class="breadcrumb-item text-dark" href="#">Shop</a>
-                <span class="breadcrumb-item active">Shop Detail</span>
-            </nav>
-        </div>
-    </div>
-</div>
 <div class="container-fluid pb-5">
     <div class="row px-xl-5">
         @await Component.InvokeAsync(nameof(_ProductDetailImageSliderComponentPartial), new { id = ViewBag.ProductId })
@@ -31,10 +20,10 @@
                 <div class="tab-content">
                     @await Component.InvokeAsync(nameof(_ProductDetailDescriptionComponentPartial), new { productId = ViewBag.ProductId })
 
-                    @await Component.InvokeAsync(nameof(_ProductDetailInformationComponentPartial), new { productId = ViewBag.ProductId })
-
+                     @await Component.InvokeAsync(nameof(_ProductDetailInformationComponentPartial), new { productId = ViewBag.ProductId })
+                    
                     @await Component.InvokeAsync(nameof(_ProductDetailReviewComponentPartial), new { productId = ViewBag.ProductId })
-
+ 
                     @*  *@
                 </div>
             </div>

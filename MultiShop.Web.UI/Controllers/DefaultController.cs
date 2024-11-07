@@ -5,15 +5,12 @@ namespace MultiShop.Web.UI.Controllers
 {
     public class DefaultController : Controller
     {
-        private readonly ILoginService _loginService;
-
-        public DefaultController(ILoginService loginService)
-        {
-            _loginService = loginService;
-        }
-
         public IActionResult Index()
         {
+            ViewBag.directory1 = "MultiShop";
+            ViewBag.directory2 = "Home Page";
+            ViewBag.directory2 = "Product List";
+
             return View();
         }
     }

@@ -13,6 +13,8 @@
 
     @await Component.InvokeAsync(nameof(_NavbarUILayoutViewComponentPartial))
 
+    @await Component.InvokeAsync(nameof(_DirectoryAlertUILayoutComponentPartial))
+
     @RenderBody();  
 
     @await Component.InvokeAsync(nameof(_FooterUILayoutViewComponentPartial))

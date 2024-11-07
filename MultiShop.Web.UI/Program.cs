@@ -1,8 +1,16 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MultiShop.Web.UI.Handlers;
+using MultiShop.Web.UI.Services.CatalogServices.AboutServices;
+using MultiShop.Web.UI.Services.CatalogServices.BrandServices;
 using MultiShop.Web.UI.Services.CatalogServices.CategoryServices;
+using MultiShop.Web.UI.Services.CatalogServices.FeatureServices;
+using MultiShop.Web.UI.Services.CatalogServices.FeatureSliderServices;
+using MultiShop.Web.UI.Services.CatalogServices.OfferDiscountServices;
+using MultiShop.Web.UI.Services.CatalogServices.ProductDetailServices;
+using MultiShop.Web.UI.Services.CatalogServices.ProductImageServices;
 using MultiShop.Web.UI.Services.CatalogServices.ProductServices;
+using MultiShop.Web.UI.Services.CatalogServices.SpecialOfferServices;
 using MultiShop.Web.UI.Services.Concrete;
 using MultiShop.Web.UI.Services.Interfaces;
 using MultiShop.Web.UI.Settings;
@@ -64,6 +72,47 @@ builder.Services.AddHttpClient<IProductService, ProductService>(opt =>
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
 }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
+builder.Services.AddHttpClient<ISpecialOfferService, SpecialOfferService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+builder.Services.AddHttpClient<IFeatureSliderService, FeatureSliderService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+builder.Services.AddHttpClient<IFeatureService, FeatureService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+builder.Services.AddHttpClient<IOfferDiscountService, OfferDiscountService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+builder.Services.AddHttpClient<IBrandService, BrandService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+builder.Services.AddHttpClient<IAboutService, AboutService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+builder.Services.AddHttpClient<IProductImageService, ProductImageService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+
+builder.Services.AddHttpClient<IProductDetailService, ProductDetailService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -81,18 +130,15 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    // ?vv?lc? "areas" mar?rutunu ?lav? edirik
-    endpoints.MapControllerRoute(
+app.MapControllerRoute(
       name: "areas",
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
 
-    // Sonra "default" mar?rutunu ?lav? edirik
-    endpoints.MapControllerRoute(
-      name: "default",
-      pattern: "{controller=Default}/{action=Index}/{id?}");
-});
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Default}/{action=Index}/{id?}");
+
+
 
 app.Run();

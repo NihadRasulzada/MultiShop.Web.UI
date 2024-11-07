@@ -1,29 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.CatalogDtos.ProductDtos;
+using MultiShop.Web.UI.Services.CatalogServices.ProductServices;
 using Newtonsoft.Json;
 
 namespace MultiShop.Web.UI.ViewComponents.ProductDetailViewComponents
 {
     public class _ProductDetailFeatureComponentPartial : ViewComponent
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IProductService _productService;
 
-        public _ProductDetailFeatureComponentPartial(IHttpClientFactory httpClientFactory)
+        public _ProductDetailFeatureComponentPartial(IProductService productService)
         {
-            _httpClientFactory = httpClientFactory;
+            _productService = productService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(string id)
         {
-            var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("http://157.230.105.226:7010/api/Product/" + id);
-            if (response.IsSuccessStatusCode)
-            {
-                var jsonData = await response.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateProductDto>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _productService.GetByIdProductAsync(id);
+            return View(values);
+            //var client = _httpClientFactory.CreateClient();
+            //var response = await client.GetAsync("http://157.230.105.226:7010/api/Product/" + id);
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    var jsonData = await response.Content.ReadAsStringAsync();
+            //    var values = JsonConvert.DeserializeObject<UpdateProductDto>(jsonData);
+            //    return View(values);
+            //}
+            //return View();
         }
     }
 }
