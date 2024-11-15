@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MultiShop.Web.UI.Handlers;
+using MultiShop.Web.UI.Services.BasketServices;
 using MultiShop.Web.UI.Services.CatalogServices.AboutServices;
 using MultiShop.Web.UI.Services.CatalogServices.BrandServices;
 using MultiShop.Web.UI.Services.CatalogServices.CategoryServices;
+using MultiShop.Web.UI.Services.CatalogServices.ContactServices;
 using MultiShop.Web.UI.Services.CatalogServices.FeatureServices;
 using MultiShop.Web.UI.Services.CatalogServices.FeatureSliderServices;
 using MultiShop.Web.UI.Services.CatalogServices.OfferDiscountServices;
@@ -11,6 +13,7 @@ using MultiShop.Web.UI.Services.CatalogServices.ProductDetailServices;
 using MultiShop.Web.UI.Services.CatalogServices.ProductImageServices;
 using MultiShop.Web.UI.Services.CatalogServices.ProductServices;
 using MultiShop.Web.UI.Services.CatalogServices.SpecialOfferServices;
+using MultiShop.Web.UI.Services.CommentServices;
 using MultiShop.Web.UI.Services.Concrete;
 using MultiShop.Web.UI.Services.Interfaces;
 using MultiShop.Web.UI.Settings;
@@ -62,6 +65,11 @@ builder.Services.AddHttpClient<IUserService, UserService>(opt =>
     opt.BaseAddress = new Uri(values.IdentityServerUrl);
 }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
+builder.Services.AddHttpClient<IBasketService, BasketService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Basket.Path}");
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
 builder.Services.AddHttpClient<ICategoryService, CategoryService>(opt =>
 {
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
@@ -109,6 +117,16 @@ builder.Services.AddHttpClient<IProductImageService, ProductImageService>(opt =>
 
 
 builder.Services.AddHttpClient<IProductDetailService, ProductDetailService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+builder.Services.AddHttpClient<ICommentService, CommentService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Comment.Path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+builder.Services.AddHttpClient<IContactService, ContactService>(opt =>
 {
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
 }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
