@@ -1,15 +1,38 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
+@await Component.InvokeAsync(nameof(_UserLayoutHeadComponentPartial))
+
 <body>
+    <div class="container-scroller d-flex">
+        <!-- partial:../../partials/_sidebar.html -->
+        @await Component.InvokeAsync(nameof(_UserLayoutSideBarComponentPartial))
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:../../partials/_navbar.html -->
+            @await Component.InvokeAsync(nameof(_UserLayoutNavbarComponentPartial))
+            <!-- partial -->
+            @RenderBody()
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- base:js -->
+    <script src="~/sprica/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="~/sprica/js/off-canvas.js"></script>
+    <script src="~/sprica/js/hoverable-collapse.js"></script>
+    <script src="~/sprica/js/template.js"></script>
+    <!-- endinject -->
+    <!-- End custom js for this page-->
 </body>
+
 </html>

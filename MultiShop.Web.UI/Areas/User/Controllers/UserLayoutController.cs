@@ -2,6 +2,7 @@
 
 namespace MultiShop.Web.UI.Areas.User.Controllers
 {
+    [Area(nameof(User))]
     public class UserLayoutController : Controller
     {
         public IActionResult Index()

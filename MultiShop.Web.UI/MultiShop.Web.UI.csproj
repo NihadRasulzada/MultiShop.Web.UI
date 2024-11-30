@@ -19,6 +19,12 @@
     <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\maps\et-line-font\fonts\.DS_Store" />
     <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\pages\et-line-font\fonts\.DS_Store" />
     <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\tables\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\sprica\css\.DS_Store" />
+    <None Include="wwwroot\sprica\images\.DS_Store" />
+    <None Include="wwwroot\sprica\images\auth\.DS_Store" />
+    <None Include="wwwroot\sprica\images\faces\.DS_Store" />
+    <None Include="wwwroot\sprica\js\.DS_Store" />
+    <None Include="wwwroot\sprica\vendors\.DS_Store" />
   </ItemGroup>
 
   <ItemGroup>

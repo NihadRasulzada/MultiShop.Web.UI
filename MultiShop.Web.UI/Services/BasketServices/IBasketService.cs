@@ -2,7 +2,7 @@
 
 namespace MultiShop.Web.UI.Services.BasketServices
 {
-    public interface IBasketService
+    public interface IBasketService 
     {
         Task<BasketTotalDto> GetBasket();
         Task SaveBasket(BasketTotalDto basketTotalDto);

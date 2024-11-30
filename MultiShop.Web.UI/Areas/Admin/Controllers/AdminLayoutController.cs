@@ -2,9 +2,9 @@
 
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {
+    [Area(nameof(Admin))]
     public class AdminLayoutController : Controller
     {
-        [Area(nameof(Admin))]
         public IActionResult _AdminLayout()
         {
             return View();

@@ -1,0 +1,21 @@
+﻿using MultiShop.Web.Dto.OrderDtos.OrderOrderingDtos;
+using Newtonsoft.Json;
+
+namespace MultiShop.Web.UI.Services.OrderServices.OrderOderingServices
+{
+    public class OrderOrderingService : IOrderOrderingService
+    {
+        private readonly HttpClient _httpClient;
+        public OrderOrderingService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+        public async Task<List<ResultOrderingByUserIdDto>> GetOrderingByUserId(string id)
+        {
+            var responseMessage = await _httpClient.GetAsync($"orderings/GetOrderingByUserId/{id}");
+            var jsonData = await responseMessage.Content.ReadAsStringAsync();
+            var values = JsonConvert.DeserializeObject<List<ResultOrderingByUserIdDto>>(jsonData);
+            return values;
+        }
+    }
+}
