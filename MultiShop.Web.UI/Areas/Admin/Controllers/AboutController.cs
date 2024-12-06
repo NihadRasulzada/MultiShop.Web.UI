@@ -7,59 +7,124 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AboutController : Controller
     {
-        private readonly IAboutService _AboutService;
-        public AboutController(IAboutService AboutService)
+        private readonly IAboutService _aboutService;
+        private const string DEFAULT_AREA = "Admin";
+        private const string CONTROLLER_NAME = "About";
+
+        public AboutController(IAboutService aboutService)
         {
-            _AboutService = AboutService;
+            _aboutService = aboutService ?? throw new ArgumentNullException(nameof(aboutService));
         }
 
         public async Task<IActionResult> Index()
         {
-            AboutViewbagList();
-            var values = await _AboutService.GetAllAboutAsync();
-            return View(values);
+            try
+            {
+                SetBreadcrumb();
+                var aboutList = await _aboutService.GetAllAsync();
+                return View(aboutList);
+            }
+            catch (Exception ex)
+            {
+                // Consider logging the exception here
+                TempData["Error"] = "Failed to retrieve about items.";
+                return RedirectToAction("Index", "Home", new { area = DEFAULT_AREA });
+            }
         }
 
         [HttpGet]
         public IActionResult CreateAbout()
         {
-            AboutViewbagList();
+            SetBreadcrumb();
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAbout(CreateAboutDto createAboutDto)
         {
-            await _AboutService.CreateAboutAsync(createAboutDto);
-            return RedirectToAction("Index", "About", new { area = "Admin" });
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(createAboutDto);
+                }
+
+                await _aboutService.CreateAsync(createAboutDto);
+                TempData["Success"] = "About item created successfully.";
+                return RedirectToAction(nameof(Index), CONTROLLER_NAME, new { area = DEFAULT_AREA });
+            }
+            catch (Exception ex)
+            {
+                // Consider logging the exception here
+                TempData["Error"] = "Failed to create about item.";
+                return View(createAboutDto);
+            }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteAbout(string id)
         {
-            await _AboutService.DeleteAboutAsync(id);
-            return RedirectToAction("Index", "About", new { area = "Admin" });
+            try
+            {
+                await _aboutService.DeleteAsync(id);
+                TempData["Success"] = "About item deleted successfully.";
+            }
+            catch (Exception ex)
+            {
+                // Consider logging the exception here
+                TempData["Error"] = "Failed to delete about item.";
+            }
+            return RedirectToAction(nameof(Index), CONTROLLER_NAME, new { area = DEFAULT_AREA });
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateAbout(string id)
         {
-            AboutViewbagList();
-            var values = await _AboutService.GetByIdAboutAsync(id);
-            return View(values);
-        }
-        [HttpPost]
-        public async Task<IActionResult> UpdateAbout(UpdateAboutDto updateAboutDto)
-        {
-            await _AboutService.UpdateAboutAsync(updateAboutDto);
-            return RedirectToAction("Index", "About", new { area = "Admin" });
+            try
+            {
+                SetBreadcrumb();
+                var about = await _aboutService.GetByIdAsync(id);
+                return View(about);
+            }
+            catch (Exception ex)
+            {
+                // Consider logging the exception here
+                TempData["Error"] = "Failed to retrieve about item.";
+                return RedirectToAction(nameof(Index));
+            }
         }
 
-        void AboutViewbagList()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateAbout(UpdateAboutDto updateAboutDto)
         {
-            ViewBag.v1 = "Ana Sayfa";
-            ViewBag.v2 = "Hakkımda";
-            ViewBag.v3 = "Hakkımda Listesi";
-            ViewBag.v0 = "Hakkımda İşlemleri";
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(updateAboutDto);
+                }
+
+                await _aboutService.UpdateAsync(updateAboutDto);
+                TempData["Success"] = "About item updated successfully.";
+                return RedirectToAction(nameof(Index), CONTROLLER_NAME, new { area = DEFAULT_AREA });
+            }
+            catch (Exception ex)
+            {
+                // Consider logging the exception here
+                TempData["Error"] = "Failed to update about item.";
+                return View(updateAboutDto);
+            }
+        }
+
+        private void SetBreadcrumb()
+        {
+            ViewBag.v0 = "About Operations";
+            ViewBag.v1 = "Home";
+            ViewBag.v2 = "About";
+            ViewBag.v3 = "About List";
         }
     }
 }

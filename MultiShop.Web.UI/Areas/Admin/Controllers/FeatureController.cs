@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.CatalogDtos.FeatureDtos;
 using MultiShop.Web.UI.Services.CatalogServices.FeatureServices;
-using Newtonsoft.Json;
-using System.Text;
 
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {
@@ -57,7 +55,7 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
             var values = await _featureService.GetByIdFeatureAsync(id);
             return View(values);
         }
-               [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Update(UpdateFeatureDto updateFeatureDto)
         {
             await _featureService.UpdateFeatureAsync(updateFeatureDto);

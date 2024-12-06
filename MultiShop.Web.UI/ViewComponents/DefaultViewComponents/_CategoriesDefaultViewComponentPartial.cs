@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MultiShop.Web.Dto.CatalogDtos.CategoryDtos;
 using MultiShop.Web.UI.Services.CatalogServices.CategoryServices;
-using Newtonsoft.Json;
 
 namespace MultiShop.Web.UI.ViewComponents.DefaultViewComponents
 {

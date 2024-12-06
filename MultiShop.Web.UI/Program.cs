@@ -10,7 +10,6 @@ builder.RegisterHttpClients();
 
 var app = builder.Build();
 
-// Middleware'leri kullan
 app.UseMiddlewares();
 
 app.Run();

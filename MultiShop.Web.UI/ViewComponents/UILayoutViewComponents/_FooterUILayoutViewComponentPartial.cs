@@ -12,7 +12,7 @@ namespace MultiShop.Web.UI.ViewComponents.UILayoutViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var values = await _aboutService.GetAllAboutAsync();
+            var values = await _aboutService.GetAllAsync();
             return View(values);
         }
     }

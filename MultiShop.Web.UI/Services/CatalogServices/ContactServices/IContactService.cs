@@ -1,5 +1,4 @@
 ﻿using MultiShop.Web.Dto.CatalogDtos.ContactDtos;
-using MultiShop.Web.Dto.CommentDtos;
 
 namespace MultiShop.Web.UI.Services.CatalogServices.ContactServices
 {

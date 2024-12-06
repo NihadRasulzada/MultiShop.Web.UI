@@ -4,10 +4,10 @@ namespace MultiShop.Web.UI.Services.CatalogServices.AboutServices
 {
     public interface IAboutService
     {
-        Task<List<ResultAboutDto>> GetAllAboutAsync();
-        Task CreateAboutAsync(CreateAboutDto createAboutDto);
-        Task UpdateAboutAsync(UpdateAboutDto updateAboutDto);
-        Task DeleteAboutAsync(string id);
-        Task<UpdateAboutDto> GetByIdAboutAsync(string id);
+        Task<List<ResultAboutDto>> GetAllAsync();
+        Task<bool> CreateAsync(CreateAboutDto createAboutDto);
+        Task<bool> UpdateAsync(UpdateAboutDto updateAboutDto);
+        Task<bool> DeleteAsync(string id);
+        Task<UpdateAboutDto> GetByIdAsync(string id);
     }
 }

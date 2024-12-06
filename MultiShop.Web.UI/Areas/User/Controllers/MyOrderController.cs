@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.UI.Services.Interfaces;
 using MultiShop.Web.UI.Services.OrderServices.OrderOderingServices;
 

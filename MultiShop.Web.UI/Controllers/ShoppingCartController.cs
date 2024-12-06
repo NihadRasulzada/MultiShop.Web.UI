@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.BasketDtos;
-using MultiShop.Web.Dto.CatalogDtos.ProductDtos;
 using MultiShop.Web.UI.Services.BasketServices;
 using MultiShop.Web.UI.Services.CatalogServices.ProductServices;
 

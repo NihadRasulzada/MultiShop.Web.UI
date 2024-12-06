@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MultiShop.Web.UI.Services.Interfaces;
 
 namespace MultiShop.Web.UI.Controllers
 {

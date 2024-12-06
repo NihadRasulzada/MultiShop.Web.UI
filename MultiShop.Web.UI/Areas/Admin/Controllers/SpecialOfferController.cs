@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.CatalogDtos.SpecialOfferDtos;
 using MultiShop.Web.UI.Services.CatalogServices.SpecialOfferServices;
-using Newtonsoft.Json;
-using System.Text;
 
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {

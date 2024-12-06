@@ -35,7 +35,7 @@ namespace MultiShop.Web.UI.Services.CatalogServices.ProductImageServices
         {
             await _httpClient.PutAsJsonAsync<UpdateProductImageDto>("productimage", updateProductImageDto);
         }
-         
+
         public async Task<GetByIdProductImageDto> GetByProductIdProductImageAsync(string id)
         {
             var responseMessage = await _httpClient.GetAsync("ProductImage/ProductImagesByProductId/" + id);
