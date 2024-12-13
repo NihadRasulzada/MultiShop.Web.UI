@@ -4,7 +4,7 @@ using MultiShop.Web.UI.Services.BasketServices;
 namespace MultiShop.Web.UI.ViewComponents.OrderViewComponents
 {
     public class _OrderSummaryComponentPartial : ViewComponent
-    {
+    { 
         private readonly IBasketService _basketService;
 
         public _OrderSummaryComponentPartial(IBasketService basketService)
@@ -14,8 +14,8 @@ namespace MultiShop.Web.UI.ViewComponents.OrderViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var basketItems = (await _basketService.GetBasket()).BasketItems;
-            return View(basketItems);
+            var basketTotal = await _basketService.GetBasket();
+            return View(basketTotal);
         }
     }
 }

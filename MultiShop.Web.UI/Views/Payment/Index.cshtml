@@ -46,7 +46,7 @@
 
         </div>
 
-        <form action="">
+        <form asp-action="Pay" asp-controller="Payment" method="post">
             <div class="inputBox">
                 <span>Kart Numarası</span>
                 <input type="text" maxlength="16" class="card-number-input">
@@ -95,7 +95,7 @@
                     <input type="text" maxlength="4" class="cvv-input">
                 </div>
             </div>
-            <input type="submit" value="Ödemeyi Tamamla" class="submit-btn">
+            <button type="submit" class="submit-btn">Ödemeyi Tamamla</button>
         </form>
     </div>
     <script>

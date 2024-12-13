@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.CatalogDtos.AboutDtos;
 using MultiShop.Web.UI.Services.CatalogServices.AboutServices;
 
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class AboutController : Controller
     {
         private readonly IAboutService _aboutService;

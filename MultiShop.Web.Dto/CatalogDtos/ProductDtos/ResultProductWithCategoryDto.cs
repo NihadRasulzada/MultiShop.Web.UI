@@ -1,4 +1,5 @@
-﻿using MultiShop.Web.Dto.CatalogDtos.CategoryDtos;
+﻿using Microsoft.AspNetCore.Http;
+using MultiShop.Web.Dto.CatalogDtos.CategoryDtos;
 
 namespace MultiShop.Web.Dto.CatalogDtos.ProductDtos
 {
@@ -7,7 +8,9 @@ namespace MultiShop.Web.Dto.CatalogDtos.ProductDtos
         public string Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public string ImageUrl { get; set; }
+        public string ImageName { get; set; }
+        public IFormFile Photo { get; set; }
+        public string ImageLink { get; set; }
         public string Description { get; set; }
         public ResultCategoryDto Category { get; set; }
 

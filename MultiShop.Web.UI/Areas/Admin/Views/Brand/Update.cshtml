@@ -11,12 +11,13 @@
                 <h4>Bordered Table</h4>
                 <p>Add <code>.table-bordered</code> for borders on all sides of the table and cells.</p>
                 <div class="bs-example" data-example-id="bordered-table">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         <label>Kategori Adı</label>
                         <input class="form-control" asp-for="Name" />
                         <br />
-                        <label>Kategori ImageUrl</label>
-                        <input class="form-control" asp-for="ImageUrl" />
+                        <label>Kategori Photo</label>
+                        <input class="form-control" asp-for="Photo" />
+                        <input class="form-control" type="hidden" asp-for="ImageName" />
                         <br />
                         <button type="submit" class="btn btn-primary">Kategoriyi Ekle</button>
                     </form>

@@ -23,15 +23,17 @@ namespace MultiShop.Web.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> ConfirmDiscountCoupon(string code)
         {
-            var values = await _discountService.GetDiscountCouponCountRate(code);
+            await _basketService.AddDiscount(code);
 
             var basketValues = await _basketService.GetBasket();
-            var totalPriceWithTax = basketValues.TotalPrice + basketValues.TotalPrice / 100 * 10;
 
-            var totalNewPriceWithDiscount = totalPriceWithTax - (totalPriceWithTax / 100 * values);
+            //var totalPriceWithTax = basketValues.TotalPrice + basketValues.TotalPrice / 100 * 10;
+
+            //var totalNewPriceWithDiscount = totalPriceWithTax - (totalPriceWithTax / 100 * basketValues.DiscountRate);
+
             //ViewBag.totalNewPriceWithDiscount = totalNewPriceWithDiscount;
 
-            return RedirectToAction("Index", "ShoppingCart", new { code = code, discountRate = values, totalNewPriceWithDiscount = totalNewPriceWithDiscount });
+            return RedirectToAction("Index", "ShoppingCart");
         }
     }
 }

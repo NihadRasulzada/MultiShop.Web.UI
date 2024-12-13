@@ -14,20 +14,18 @@ namespace MultiShop.Web.UI.Controllers
             _productService = productService;
             _basketService = basketService;
         }
-        public async Task<IActionResult> Index(string code, int discountRate, decimal totalNewPriceWithDiscount)
+        public async Task<IActionResult> Index()
         {
-            ViewBag.code = code;
-            ViewBag.discountRate = discountRate;
-            ViewBag.totalNewPriceWithDiscount = totalNewPriceWithDiscount;
+            var values = await _basketService.GetBasket();
+            ViewBag.code = values.DiscountCode;
+            ViewBag.discountRate = values.DiscountRate;
+            ViewBag.totalNewPriceWithDiscount = values.TotalNewPriceWithDiscount;
             ViewBag.directory1 = "Ana Sayfa";
             ViewBag.directory2 = "Ürünler";
             ViewBag.directory3 = "Sepetim";
-            var values = await _basketService.GetBasket();
             ViewBag.total = values.TotalPrice;
-            var totalPriceWithTax = values.TotalPrice + values.TotalPrice / 100 * 10;
-            var tax = values.TotalPrice / 100 * 10;
-            ViewBag.totalPriceWithTax = totalPriceWithTax;
-            ViewBag.tax = tax;
+            ViewBag.totalPriceWithTax = values.TotalPriceWithTax;
+            ViewBag.tax = values.Tax;
             return View();
         }
 
@@ -41,7 +39,7 @@ namespace MultiShop.Web.UI.Controllers
                 ProductName = values.Name,
                 Price = values.Price,
                 Quantity = 1,
-                ProductImageUrl = values.ImageUrl
+                ProductImageName = values.ImageName
             };
             await _basketService.AddBasketItem(items);
             return RedirectToAction("Index");

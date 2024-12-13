@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.CatalogDtos.ProducImageDtos;
 using Newtonsoft.Json;
 using System.Text;
@@ -6,6 +7,8 @@ using System.Text;
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {
     [Area(nameof(Admin))]
+    [Authorize]
+
     public class ProductImageController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

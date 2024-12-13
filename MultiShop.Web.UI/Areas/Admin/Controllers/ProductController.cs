@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MultiShop.Web.Dto.CatalogDtos.ProductDtos;
 using MultiShop.Web.UI.Services.CatalogServices.CategoryServices;
@@ -7,6 +8,8 @@ using MultiShop.Web.UI.Services.CatalogServices.ProductServices;
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
+
     public class ProductController : Controller
     {
         private readonly IProductService _productService;

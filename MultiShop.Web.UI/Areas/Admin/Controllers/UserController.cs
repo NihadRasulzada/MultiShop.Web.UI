@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.UI.Services.CargoServices.CargoCustomerServices;
 using MultiShop.Web.UI.Services.UserIdentityServices;
 
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {
     [Area(nameof(Admin))]
+    [Authorize]
+
     public class UserController : Controller
     {
         private readonly IUserIdentityService _userIdentityService;

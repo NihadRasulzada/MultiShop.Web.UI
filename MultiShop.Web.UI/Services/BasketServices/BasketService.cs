@@ -1,13 +1,20 @@
 ﻿using MultiShop.Web.Dto.BasketDtos;
+using MultiShop.Web.Dto.DiscountDtos;
+using MultiShop.Web.UI.Services.DiscountServices;
+using MultiShop.Web.UI.Services.ImageServices;
 
 namespace MultiShop.Web.UI.Services.BasketServices
 {
     public class BasketService : IBasketService
     {
         private readonly HttpClient _httpClient;
-        public BasketService(HttpClient httpClient)
+        private readonly IImageService _imageService;
+        private readonly IDiscountService _discountService;
+        public BasketService(HttpClient httpClient, IImageService imageService, IDiscountService discountService)
         {
             _httpClient = httpClient;
+            _imageService = imageService;
+            _discountService = discountService;
         }
         public async Task AddBasketItem(BasketItemDto basketItemDto)
         {
@@ -20,22 +27,55 @@ namespace MultiShop.Web.UI.Services.BasketServices
                 }
                 else
                 {
-                    values = new BasketTotalDto();
-                    values.BasketItems.Add(basketItemDto);
+                    var updatedItem = values.BasketItems.FirstOrDefault(x => x.ProductId == basketItemDto.ProductId);
+                    updatedItem.Quantity += basketItemDto.Quantity;
                 }
             }
             await SaveBasket(values);
         }
 
-        public Task DeleteBasket(string userId)
+        public async Task AddDiscount(string discountCode)
         {
-            throw new NotImplementedException();
+            var basketValues = await GetBasket();
+
+            if (discountCode == null)
+            {
+                basketValues.DiscountCode = "";
+                basketValues.DiscountRate = 0;
+            }
+            else
+            {
+                GetDiscountCodeDetailByCode values = await _discountService.GetDiscountCode(discountCode);
+                basketValues.DiscountCode = values.Code;
+                basketValues.DiscountRate = values.Rate;
+            }
+            await SaveBasket(basketValues);
+
+        }
+
+        public async Task DeleteBasket()
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"baskets");
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                // Consider logging the exception here
+                throw new ApplicationException($"Failed to delete about item", ex);
+            }
         }
 
         public async Task<BasketTotalDto> GetBasket()
         {
             var responseMessage = await _httpClient.GetAsync("baskets");
             var values = await responseMessage.Content.ReadFromJsonAsync<BasketTotalDto>();
+
+            foreach (var item in values.BasketItems)
+            {
+                item.ProductImageLink = await _imageService.GetImageLinkAsync(item.ProductImageName);
+            }
             return values;
         }
 
@@ -50,7 +90,12 @@ namespace MultiShop.Web.UI.Services.BasketServices
 
         public async Task SaveBasket(BasketTotalDto basketTotalDto)
         {
-            await _httpClient.PostAsJsonAsync<BasketTotalDto>("baskets", basketTotalDto);
+            if (basketTotalDto.DiscountCode == null)
+            {
+                basketTotalDto.DiscountCode = "";
+                basketTotalDto.DiscountRate = 0;
+            }
+            var value = await _httpClient.PostAsJsonAsync<BasketTotalDto>("http://localhost:5000/services/basket/baskets", basketTotalDto);
         }
     }
 }

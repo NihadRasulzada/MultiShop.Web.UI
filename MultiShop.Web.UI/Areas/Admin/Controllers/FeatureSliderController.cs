@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.CatalogDtos.FeatureSliderDto;
 using MultiShop.Web.UI.Services.CatalogServices.FeatureSliderServices;
 
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
+
     public class FeatureSliderController : Controller
     {
         private readonly IFeatureSliderService _featureSliderService;

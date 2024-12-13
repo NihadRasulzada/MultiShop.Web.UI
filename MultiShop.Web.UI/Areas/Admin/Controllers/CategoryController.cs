@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.CatalogDtos.CategoryDtos;
 using MultiShop.Web.UI.Services.CatalogServices.CategoryServices;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
+
     public class CategoryController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

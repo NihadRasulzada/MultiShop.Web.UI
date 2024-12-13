@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.CatalogDtos.FeatureDtos;
 using MultiShop.Web.UI.Services.CatalogServices.FeatureServices;
 
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {
     [Area(nameof(Admin))]
+    [Authorize]
+
     public class FeatureController : Controller
     {
         private readonly IFeatureService _featureService;

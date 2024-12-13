@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.CatalogDtos.BrandsDto;
 using MultiShop.Web.UI.Services.CatalogServices.BrandServices;
+using MultiShop.Web.UI.Services.ImageServices;
 
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {
     [Area(nameof(Admin))]
+    [Authorize]
     public class BrandController : Controller
     {
         private readonly IBrandService _brandService;

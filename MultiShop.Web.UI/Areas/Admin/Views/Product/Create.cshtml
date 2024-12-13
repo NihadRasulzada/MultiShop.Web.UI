@@ -14,7 +14,7 @@
                 <br />
                 <div class="bs-example" data-example-id="bordered-table">
 
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         <label>Ürün Adı</label>
                         <input type="text" class="form-control" asp-for="Name" />
                         <br />
@@ -22,7 +22,7 @@
                         <input type="text" class="form-control" asp-for="Price" />
                         <br />
                         <label>Ürün Görseli</label>
-                        <input type="text" class="form-control" asp-for="ImageUrl" />
+                        <input class="form-control" asp-for="Photo" />
                         <br />
                         <label>Ürün Kategorisi</label>
                         @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.CategoryValues, new { @class = "form-control" })

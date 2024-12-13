@@ -1,4 +1,5 @@
 ﻿using MultiShop.Web.UI.Handlers;
+using MultiShop.Web.UI.Handlers;
 using MultiShop.Web.UI.Services.BasketServices;
 using MultiShop.Web.UI.Services.CargoServices.CargoCompanyServices;
 using MultiShop.Web.UI.Services.CargoServices.CargoCustomerServices;
@@ -15,12 +16,20 @@ using MultiShop.Web.UI.Services.CatalogServices.ProductServices;
 using MultiShop.Web.UI.Services.CatalogServices.SpecialOfferServices;
 using MultiShop.Web.UI.Services.CommentServices;
 using MultiShop.Web.UI.Services.Concrete;
+using MultiShop.Web.UI.Services.DiscountServices;
+using MultiShop.Web.UI.Services.ImageServices;
 using MultiShop.Web.UI.Services.Interfaces;
 using MultiShop.Web.UI.Services.MessageService;
 using MultiShop.Web.UI.Services.OrderServices.OrderAddressServices;
+using MultiShop.Web.UI.Services.OrderServices.OrderDetailServices;
 using MultiShop.Web.UI.Services.OrderServices.OrderOderingServices;
+using MultiShop.Web.UI.Services.StatisticServices.CatalogStatisticServices;
+using MultiShop.Web.UI.Services.StatisticServices.DiscountStatisticServices;
+using MultiShop.Web.UI.Services.StatisticServices.MessageStatisticServices;
+using MultiShop.Web.UI.Services.StatisticServices.UserStatisticServices;
 using MultiShop.Web.UI.Services.UserIdentityServices;
 using MultiShop.Web.UI.Settings;
+using System.IO;
 
 namespace MultiShop.Web.UI.Extensions
 {
@@ -39,12 +48,21 @@ namespace MultiShop.Web.UI.Extensions
             RegisterCommentServices(services, values, values.Comment.Path);
             RegisterCargoServices(services, values, values.Cargo.Path);
             RegisterMessageServices(services, values, values.Message.Path);
+            RegisterStatisticServices(services, values);
             RegisterMiscellaneousServices(services, values);
         }
 
         private static void RegisterBasketServices(IServiceCollection services, ServiceApiSettings values, string path)
         {
             RegisterHttpClient<IBasketService, BasketService, ResourceOwnerPasswordTokenHandler>(services, values, path);
+        }
+
+        private static void RegisterStatisticServices(IServiceCollection services, ServiceApiSettings values)
+        {
+            RegisterHttpClient<ICatalogStatisticService, CatalogStatisticService, ResourceOwnerPasswordTokenHandler>(services, values, values.Catalog.Path);
+            RegisterHttpClient<IMessageStatisticService, MessageStatisticService, ResourceOwnerPasswordTokenHandler>(services, values, values.Message.Path);
+            RegisterHttpClient<IDiscountStatisticService, DiscountStatisticService, ResourceOwnerPasswordTokenHandler>(services, values, values.Discount.Path);
+            RegisterHttpClient<IUserStatisticService, UserStatisticService, ResourceOwnerPasswordTokenHandler>(services, values, values.IdentityServerUrl);
         }
 
         private static void RegisterCargoServices(IServiceCollection services, ServiceApiSettings values, string path)
@@ -62,6 +80,7 @@ namespace MultiShop.Web.UI.Extensions
         {
             RegisterHttpClient<IOrderOrderingService, OrderOrderingService, ResourceOwnerPasswordTokenHandler>(services, values, path);
             RegisterHttpClient<IOrderAddressService, OrderAddressService, ResourceOwnerPasswordTokenHandler>(services, values, path);
+            RegisterHttpClient<IOrderDetailService, OrderDetailService, ResourceOwnerPasswordTokenHandler>(services, values, path);
         }
 
         private static void RegisterCatalogServices(IServiceCollection services, ServiceApiSettings values, string path)
@@ -96,6 +115,10 @@ namespace MultiShop.Web.UI.Extensions
             {
                 opt.BaseAddress = new Uri(values.IdentityServerUrl);
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+            RegisterHttpClient<IImageService, ImageService, ResourceOwnerPasswordTokenHandler>(services, values, values.Image.Path);
+
+            RegisterHttpClient<IDiscountService, DiscountService, ResourceOwnerPasswordTokenHandler>(services,values, values.Discount.Path);
         }
 
         private static void RegisterHttpClient<TInterface, TImplementation, THandler>(IServiceCollection services, ServiceApiSettings settings, string basePath)

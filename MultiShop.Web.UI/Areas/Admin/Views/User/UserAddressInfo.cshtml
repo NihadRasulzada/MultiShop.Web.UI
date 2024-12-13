@@ -11,12 +11,12 @@
             <div class="chart-box">
                 <div class="bs-example" data-example-id="bordered-table">
                     <h3>Kullanıcı Adres ve İletişim Bilgisi</h3>
-                    <div class="alert alert-info">Kullanıcı Id:@Model.Id</div>
-                    <div class="alert alert-warning">Kullanıcı Adı Soyadı:@Model.Name @Model.Surname</div>
-                    <div class="alert alert-info">Email Adresi: @Model.Email</div>
-                    <div class="alert alert-warning">Telefon: @Model.Phone</div>
-                    <div class="alert alert-info">İlçe-Şehir: @Model.District @Model.City</div>
-                    <div class="alert alert-warning">Adres: @Model.Address</div>
+                    <div class="alert alert-info">Kullanıcı Id: @Model.Id</div>
+                    <div class="alert alert-warning">Kullanıcı Adı Soyadı: @(Model?.Name ?? "N/A") @(Model?.Surname ?? "N/A")</div>
+                    <div class="alert alert-info">Email Adresi: @(Model?.Email ?? "N/A")</div>
+                    <div class="alert alert-warning">Telefon: @(Model?.Phone ?? "N/A")</div>
+                    <div class="alert alert-info">İlçe-Şehir: @(Model?.District ?? "N/A") @(Model?.City ?? "N/A")</div>
+                    <div class="alert alert-warning">Adres: @(Model?.Address ?? "N/A")</div>
                 </div>
             </div>
         </div>

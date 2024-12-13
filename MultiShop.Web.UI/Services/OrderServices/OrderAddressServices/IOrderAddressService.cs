@@ -6,8 +6,8 @@ namespace MultiShop.Web.UI.Services.OrderServices.OrderAddressServices
     {
         // Task<List<ResultAboutDto>> GetAllAboutAsync();
         Task CreateOrderAddressAsync(CreateOrderAddressDto createOrderAddressDto);
-        //    Task UpdateAboutAsync(UpdateAboutDto updateAboutDto);
+        Task UpdateOrderAddressAsync(GetByIdOrderAddressDto updateAddressDto);
         //    Task DeleteAboutAsync(string id);
-        //    Task<UpdateAboutDto> GetByIdAboutAsync(string id);
+        Task<GetByIdOrderAddressDto?> GetByUserIdAddressAsync(string id);
     }
 }

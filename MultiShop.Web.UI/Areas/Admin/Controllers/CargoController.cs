@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.CargoDtos.CargoCompanyDtos;
 using MultiShop.Web.UI.Services.CargoServices.CargoCompanyServices;
 
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {
+    [Area(nameof(Admin))]
+    [Authorize]
+
     public class CargoController : Controller
     {
         private readonly ICargoCompanyService _cargoCompanyService;
@@ -12,7 +16,6 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
             _cargoCompanyService = cargoCompanyService;
         }
 
-        [Route("CargoCompanyList")]
         public async Task<IActionResult> CargoCompanyList()
         {
             var values = await _cargoCompanyService.GetAllCargoCompanyAsync();
@@ -20,14 +23,12 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("CreateCargoCompany")]
         public IActionResult CreateCargoCompany()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("CreateCargoCompany")]
         public async Task<IActionResult> CreateCargoCompany(CreateCargoCompanyDto createCargoCompanyDto)
         {
             await _cargoCompanyService.CreateCargoCompanyAsync(createCargoCompanyDto);
@@ -35,7 +36,6 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
         }
 
 
-        [Route("DeleteCargoCompany/{id}")]
         public async Task<IActionResult> DeleteCargoCompany(int id)
         {
             await _cargoCompanyService.DeleteCargoCompanyAsync(id);
@@ -43,14 +43,12 @@ namespace MultiShop.Web.UI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("UpdateCargoCompany/{id}")]
         public async Task<IActionResult> UpdateCargoCompany(int id)
         {
             var values = await _cargoCompanyService.GetByIdCargoCompanyAsync(id);
             return View(values);
         }
         [HttpPost]
-        [Route("UpdateCargoCompany")]
         public async Task<IActionResult> UpdateCargoCompany(UpdateCargoCompanyDto updateCargoCompanyDto)
         {
             await _cargoCompanyService.UpdateCargoCompanyAsync(updateCargoCompanyDto);

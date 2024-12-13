@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiShop.Web.Dto.CatalogDtos.OfferDiscountDtos;
 using MultiShop.Web.UI.Services.CatalogServices.OfferDiscountServices;
 
 namespace MultiShop.Web.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
+
     public class OfferDiscountController : Controller
     {
         private readonly IOfferDiscountService _offerDiscountService;

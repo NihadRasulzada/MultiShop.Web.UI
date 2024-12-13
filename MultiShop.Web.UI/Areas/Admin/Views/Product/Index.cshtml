@@ -15,8 +15,9 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Ürün Sekili</th>
                                 <th>Ürün Adı</th>
-                                <th>Ürün Fiyatı</th>
+                                <th>Ürün Qiymeti</th>
                                 <th>Sil</th>
                                 <th>Güncelle</th>
                             </tr>
@@ -26,7 +27,8 @@
                             {
                                 count++;
                                 <tr>
-                                    <th scope="row">@count</th>
+                                    <td scope="row">@count</td>
+                                    <td><img src="@item.ImageLink" style="width: 50px; height: 50px;" /></td>
                                     <td>@item.Name</td>
                                     <td>@item.Price</td>
                                     <td><a href="/Admin/Product/Delete/@item.Id" class="btn btn-danger">Sil</a></td>
