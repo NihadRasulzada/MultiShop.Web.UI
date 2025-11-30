@@ -1,0 +1,40 @@
+﻿@using MultiShop.Web.Dto.OrderDtos.OrderOrderingDtos
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+    int count = 0;
+    IEnumerable<ResultOrderOrderingByUserIdDto> orders = ViewBag.Orders;
+}
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart-box">
+                <div class="bs-example" data-example-id="bordered-table">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Total price</th>
+                                <th>Order date</th>
+                                <th>Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in orders)
+                            {
+                                count++;
+                                <tr>
+                                    <td scope="row">@count</td>
+                                    <td>@item.TotalPrice</td>
+                                    <td>@item.OrderDate.ToShortDateString()</td>
+                                    <td><a href="/Admin/Order/Detail/@item.Id" class="btn btn-danger">Detail</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

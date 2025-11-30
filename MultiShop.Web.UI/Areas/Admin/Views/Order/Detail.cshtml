@@ -1,0 +1,44 @@
+﻿@using MultiShop.Web.Dto.OrderDtos.OrderDetailDtos
+@model List<AdminOrderDetail>
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart-box">
+                <div class="bs-example" data-example-id="bordered-table">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product Image</th>
+                                <th>Product Name</th>
+                                <th>Product Price </th>
+                                <th>Product Amount </th>
+                                <th>Product TotalPrice </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                count++;
+                                <tr>
+                                    <td scope="row">@count</td>
+                                    <td><img src="@item.ProductImageLink" style="width: 50px; height: 50px;" /></td>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.ProductPrice</td>
+                                    <td>@item.ProductAmount</td>
+                                    <td>@item.ProductTotalPrice</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
